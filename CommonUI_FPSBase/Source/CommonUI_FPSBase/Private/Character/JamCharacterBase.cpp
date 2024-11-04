@@ -2,6 +2,7 @@
 
 
 #include "Character/JamCharacterBase.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 AJamCharacterBase::AJamCharacterBase()

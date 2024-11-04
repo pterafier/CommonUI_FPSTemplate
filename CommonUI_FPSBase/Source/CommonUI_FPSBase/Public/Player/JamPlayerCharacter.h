@@ -21,8 +21,22 @@ public:
 	// Constructor
 	AJamPlayerCharacter();
 
+	// The main camera for the player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCameraComponent> Camera;
+
+	// Defines how far the line trace will go from the camera
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
+	float InteractDistance;
+
+	// Defines the actor the InteractTrace hits
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	AActor* LookAtActor;
+
 protected:
-private:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Function run on tick that will allow actors to be highlighted if we look at them. Simply draws a line out of the camera to a point in front of the player based on where the camera is looking.
+	void InteractTrace();
 };
