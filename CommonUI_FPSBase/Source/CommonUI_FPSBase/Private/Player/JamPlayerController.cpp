@@ -25,7 +25,7 @@ void AJamPlayerController::BeginPlay()
 	{
 		// add the mapping context so we get controls
 		Subsystem->AddMappingContext(InputMappingContext, 0);
-		// GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Green, TEXT("Mapping context added successfully"));
+		GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Green, TEXT("Mapping context added successfully"));
 	}
 
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
@@ -49,7 +49,7 @@ void AJamPlayerController::SetupInputComponent(UInputComponent* InInputComponent
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
 
-		// GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Blue, TEXT("SetupInputComponent() ran successfully"));
+		GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Blue, TEXT("SetupInputComponent() ran successfully"));
 	}
 	else
 	{

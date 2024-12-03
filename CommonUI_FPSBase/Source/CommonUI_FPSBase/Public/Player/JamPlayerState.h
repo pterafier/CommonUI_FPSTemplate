@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerState.h"
 #include "JamPlayerState.generated.h"
 
+class UAttributesComponent;
+
 /**
  * 
  */
@@ -18,4 +20,9 @@ public:
 
 	// Constructor
 	AJamPlayerState();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAttributesComponent* Attributes;
+
+	FORCEINLINE UAttributesComponent* GetAttributes() const { return Attributes; }
 };

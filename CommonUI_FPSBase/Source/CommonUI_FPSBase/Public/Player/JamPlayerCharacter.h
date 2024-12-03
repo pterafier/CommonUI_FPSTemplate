@@ -4,9 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Character/JamCharacterBase.h"
+#include "Data/SaveGameStructs.h"
 #include "JamPlayerCharacter.generated.h"
 
 class UCameraComponent;
+class AJamPlayerController;
+class AJamPlayerState;
+class UAttributesComponent;
 
 /**
  * 
@@ -33,10 +37,40 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
 	AActor* LookAtActor;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	AJamPlayerController* PlayerController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "References")
+	AJamPlayerState* PlayerStateRef;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "References")
+	UAttributesComponent* PlayerAttributes;
+
 protected:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void BeginPlay() override;
+
 	// Function run on tick that will allow actors to be highlighted if we look at them. Simply draws a line out of the camera to a point in front of the player based on where the camera is looking.
 	void InteractTrace();
+
+	UFUNCTION()
+	void TakeDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+
+public:
+	UFUNCTION(BlueprintCallable)
+	FPlayerSave GetCharacterSaveData();
+
+	UFUNCTION(BlueprintCallable)
+	void SetPlayerStateFromSaveData(const FPlayerSave& PlayerSaveData);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeath();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDamageReceived();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnPlayerDataLoaded();
 };
